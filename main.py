@@ -1,5 +1,5 @@
 import pygame 
-from pygame import *
+from pygame.locals import *
 from pygame.constants import K_KP_ENTER
 from src.start import Start as st
 from src.ordination import Ordination as odt
@@ -21,7 +21,6 @@ while keep_going:
     
     if pygame.key.get_pressed()[K_KP_ENTER]:
         keep_going = not keep_going
-    
     
     current_layout = link[current_layout].run(screen, screen_size)
     pygame.display.update()

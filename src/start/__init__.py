@@ -14,7 +14,6 @@ class Start():
     def run(self, screen, screen_size):
         self.box_info = []
         self.x1, self.y1 = self.x, self.y
-        screen.fill(color.black.value)
         if self.size>4:
             if self.timer >= 250:
                 self.changeColor = not self.changeColor
@@ -34,7 +33,6 @@ class Start():
             self.x += 0.01
             self.y += 0.01
             size = pygame.font.Font.size(self.font, 'AlgorDataStruct')
-            # self.font.set_bold(True)
             line = self.font.render('AlgorDataStruct', True, color.white.value)
             screen.blit(line, (screen_size[0]/2-size[0]/2, screen_size[1]/2-size[1]/2))
             return "start"

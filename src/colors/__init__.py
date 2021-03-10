@@ -6,7 +6,6 @@ class color(Enum):
     green=(0, 255, 0)
     black=(25,25,25)
     
-def addingColor(co):
-    colr = color.green.name
-    print(color.green.name)
-    return colr
+# this is to return the RGB value of the color
+def rgbColor(co):
+    return [color_e.value for color_name, color_e in color.__members__.items() if co == color_name][0]

@@ -4,7 +4,6 @@ from pygame.constants import K_KP_ENTER
 from src.start import Start as st
 from src.ordination import Ordination as odt
 
-colors = {"blue":(0, 0, 255), "white":(255, 255, 255), "green":(0, 255, 0), "black":(25,25,25)}
 screen_size = (640, 420)
 screen = pygame.display.set_mode((screen_size))
 pygame.display.set_caption('AlgoDataStuct')
@@ -24,5 +23,5 @@ while keep_going:
         keep_going = not keep_going
     
     
-    link[current_layout].animation(screen, colors)
+    link[current_layout].run(screen, screen_size)
     pygame.display.update()

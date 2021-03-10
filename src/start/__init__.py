@@ -30,12 +30,14 @@ class Start():
                 self.x1 = self.x
                 self.y1+=60
             [pygame.draw.rect(screen, rgbColor(info[1]), pygame.Rect(info[0][0], info[0][1], self.size, self.size)) for info in self.box_info]
-            self.size -= 0.01
-            self.x += 0.005
-            self.y += 0.005
-        
-        size = pygame.font.Font.size(self.font, 'AlgorDataStruct')
-        # self.font.set_bold(True)
-        line = self.font.render('AlgorDataStruct', True, color.white.value)
-        screen.blit(line, (screen_size[0]/2-size[0]/2, screen_size[1]/2-size[1]/2))
+            self.size -= 0.02
+            self.x += 0.01
+            self.y += 0.01
+            size = pygame.font.Font.size(self.font, 'AlgorDataStruct')
+            # self.font.set_bold(True)
+            line = self.font.render('AlgorDataStruct', True, color.white.value)
+            screen.blit(line, (screen_size[0]/2-size[0]/2, screen_size[1]/2-size[1]/2))
+            return "start"
+        else:
+            return "ordination_algorithms"
             

@@ -10,7 +10,7 @@ pygame.display.set_caption('AlgoDataStuct')
 
 # this is to control all the pages of thes aplication
 link = {"start": st(), "ordination_algorithms": odt()}
-current_layout = "start"
+current_layout = "ordination_algorithms"
 
 keep_going = True
 
@@ -23,5 +23,5 @@ while keep_going:
         keep_going = not keep_going
     
     
-    link[current_layout].run(screen, screen_size)
+    current_layout = link[current_layout].run(screen, screen_size)
     pygame.display.update()

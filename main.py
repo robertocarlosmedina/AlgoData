@@ -30,7 +30,7 @@ while keep_going:
         theme = not theme
     
     # Worcking on theme change later
-    screen.fill(color.black.value) if theme else screen.fill(color.white.value)
+    screen.fill(color.black.value) if theme else screen.fill(color.white1.value)
 
     current_layout = links[current_layout].run(screen, screen_size)
     pygame.display.update()

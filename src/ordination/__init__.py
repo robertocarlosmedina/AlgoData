@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 from src.colors import color
+from src.ordination import algorithms
+from src.ordination.algorithms import *
 
 class Ordination():
     pygame.init()
@@ -9,12 +11,16 @@ class Ordination():
         self.font = pygame.font.SysFont("montserrat-font/MontserratMedium-nRxlJ.ttf", 30)
         self.font.set_bold(True)
         self.sort_algorithms = ["Insertion Sort","Selection Sort", "Bubble Sort","Quicksort", "Merge Sort","Shell Sort", "Hybrid Sort"]
-        self.actionButtons = ["Sort", "Stop", "Mix","info"]
+        self.actionButtons = ["Sort", "Stop", "News","Info"]
         self.active = self.sort_algorithms[0]
         self.action=""
-        self.links = {"insertion": 1, "selection":2, "bubble":1, "quick":2, "merge":2, "shell":2, "hybrid":3} # this is the Links to the algorithms
+        self.links = {"insertion": algorithms.Insertition(), "selection":algorithms.Selection(), 
+                      "bubble":algorithms.Bubble(), "quick":algorithms.Quick(), "merge":algorithms.Merge(), 
+                      "shell":algorithms.Shell(), "hybrid":algorithms.Hybrid()} # this is the Links to the algorithms
+        self.items = [2,3, 2, 4, 5, 6,4,4,2,1,3, 10,1,4] # max items = 14
+        self.sort = False
         self.mouse_pos = ()
-        
+
     def algorithmsButtonsDisplay(self, screen):
         y = 70 # for the boxes
         x1, y1, = 420, 80 # for the boxes texts
@@ -26,7 +32,7 @@ class Ordination():
 
             # checking if the algorithms choice
             click = pygame.mouse.get_pressed()
-            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]) and click[0] == 1:
+            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]) and click[0] == 1 and not self.sort:
                 self.active = algorithm
 
             # hover button effect
@@ -58,6 +64,7 @@ class Ordination():
             click = pygame.mouse.get_pressed()
             if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]) and click[0] == 1:
                 self.action = button
+                self.stateControl()
 
             # hover button effect
             if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]):
@@ -73,17 +80,31 @@ class Ordination():
 
             screen.blit(line, (x1-(size[0]/2)+(box_dim[0]/2), y))
             x1 += 95
+    
+    def stateControl(self):
+        if(self.action == "Sort"):
+            self.sort = True
+        elif(self.action == "Stop"):
+            self.sort = False
+
     def drawGrafic(self, screen):
         x, y = 30, 90
         x1, y1 = 405, 305
         pygame.draw.line(screen, color.grey.value, (x, y), (x, y1),3)
         pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1),3)
 
-        x = 33
         for i in range(10):
             y1 -=20
-            pygame.draw.line(screen, color.grey1.value, (x, y1), (x1, y1),1)
-
+            pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1),1)
+        x=45
+        for item in self.items:
+            y1 = 305
+            for i in range(item):
+                y1-=20
+                item_box=pygame.Rect(x, y1, 20, 20)
+                pygame.draw.rect(screen, color.green.value, item_box)
+            x+=25      
+    
     def run(self,screen, screen_size):
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
         size = pygame.font.Font.size(self.font, 'Sorting algorithms ')
@@ -97,5 +118,10 @@ class Ordination():
         self.algorithmsButtonsDisplay(screen)
         self.actionButtonDisplay(screen)
         self.drawGrafic(screen)
+
+        if self.sort:
+            active = self.active
+            [self.links[key].run() for key in self.links.keys() if active.split(" ")[0].lower() == key]
+            
         return "ordination_algorithms"
         

@@ -1,8 +1,10 @@
 import pygame
+import random
 from pygame.locals import *
 from src.colors import color
 from src.ordination import algorithms
 from src.ordination.algorithms import *
+
 
 class Ordination():
     pygame.init()
@@ -19,6 +21,7 @@ class Ordination():
                       "shell":algorithms.Shell(), "hybrid":algorithms.Hybrid()} # this is the Links to the algorithms
         self.items = [2,3, 2, 4, 5, 6,4,4,2,1,3, 10,1,4] # max items = 14
         self.sort = False
+        self.news = False
         self.mouse_pos = ()
 
     def algorithmsButtonsDisplay(self, screen):
@@ -84,8 +87,12 @@ class Ordination():
     def stateControl(self):
         if(self.action == "Sort"):
             self.sort = True
-        elif(self.action == "Stop"):
+        elif(self.action == "News"):
+            self.news = True
             self.sort = False
+        else:
+            self.sort = False
+            self.news = False
 
     def drawGrafic(self, screen):
         x, y = 30, 90
@@ -96,14 +103,16 @@ class Ordination():
         for i in range(10):
             y1 -=20
             pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1),1)
-        x=45
-        for item in self.items:
-            y1 = 305
-            for i in range(item):
-                y1-=20
-                item_box=pygame.Rect(x, y1, 20, 20)
-                pygame.draw.rect(screen, color.green.value, item_box)
-            x+=25      
+        x=45  
+        if self.action != "Sort":
+            for item in self.items:
+                y1 = 305
+                # print(item)
+                for i in range(item):
+                    y1-=20
+                    item_box=pygame.Rect(x, y1, 20, 20)
+                    pygame.draw.rect(screen, color.green.value, item_box)
+                x+=25    
     
     def run(self,screen, screen_size):
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
@@ -119,9 +128,16 @@ class Ordination():
         self.actionButtonDisplay(screen)
         self.drawGrafic(screen)
 
+        # checking when the buttons of are pressed
         if self.sort:
             active = self.active
-            [self.links[key].run() for key in self.links.keys() if active.split(" ")[0].lower() == key]
+            self.items = [self.links[key].run(screen, self.items) for key in self.links.keys() if active.split(" ")[0].lower() == key]
+            self.items = self.items[0]
+            
+        if self.news:
+            self.items = []
+            [self.items.append(random.randint(1, 10))for i in range(14)]
+            self.news = False
             
         return "ordination_algorithms"
         

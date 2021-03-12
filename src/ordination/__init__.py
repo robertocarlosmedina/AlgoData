@@ -5,7 +5,6 @@ from src.colors import color
 from src.ordination import algorithms
 from src.ordination.algorithms import *
 
-
 class Ordination():
     pygame.init()
     def __init__(self):
@@ -59,7 +58,6 @@ class Ordination():
         y = 350 # for the boxes text's
         x1, y1, = 30, 340 # for the boxes texts
         box_dim=(90, 40) # dimension of the boxes
-        
         for button in self.actionButtons:
             size = pygame.font.Font.size(self.font, button)
             button_box = pygame.Rect(x1, y1, box_dim[0], box_dim[1])
@@ -132,7 +130,7 @@ class Ordination():
 
         # checking when the buttons of are pressed
         if self.sort:
-            items = [self.links[key].run(screen, self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
+            items = [self.links[key].run(self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
             self.items = items[0][0]
             self.pos = items[0][1]
 

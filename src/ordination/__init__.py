@@ -22,6 +22,7 @@ class Ordination():
         self.items = [2,3, 2, 4, 5, 6,4,4,2,1,3, 10,1,4] # max items = 14
         self.sort = False
         self.news = False
+        self.pos = 0
         self.mouse_pos = ()
 
     def algorithmsButtonsDisplay(self, screen):
@@ -97,6 +98,7 @@ class Ordination():
     def drawGrafic(self, screen):
         x, y = 30, 90
         x1, y1 = 405, 305
+        pos = 0
         pygame.draw.line(screen, color.grey.value, (x, y), (x, y1),3)
         pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1),3)
 
@@ -107,12 +109,12 @@ class Ordination():
         
         for item in self.items:
             y1 = 305
-            # print(item)
             for i in range(item):
                 y1-=20
                 item_box=pygame.Rect(x, y1, 20, 20)
-                pygame.draw.rect(screen, color.green.value, item_box)
-            x+=25    
+                pygame.draw.rect(screen, color.red.value, item_box) if pos < self.pos or self.pos >= len(self.items)-2 else pygame.draw.rect(screen, color.green.value, item_box)
+            x+=25  
+            pos+=1
     
     def run(self,screen, screen_size):
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
@@ -130,14 +132,16 @@ class Ordination():
 
         # checking when the buttons of are pressed
         if self.sort:
-            active = self.active
-            self.items = [self.links[key].run(screen, self.items) for key in self.links.keys() if active.split(" ")[0].lower() == key]
-            self.items = self.items[0]
+            items = [self.links[key].run(screen, self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
+            self.items = items[0][0]
+            self.pos = items[0][1]
 
         if self.news:
             self.items = []
             [self.items.append(random.randint(1, 10))for i in range(14)]
             self.news = False
+            self.pos = 0
+            self.sorted = False
             
         return "ordination_algorithms"
         

@@ -5,19 +5,19 @@ class Insertition():
     def __init__(self):
         self.count = 0
         self.sort = False
+        self.pos = 0
 
     def run(self, screen, items):
-        x, y = 45, 90
-        x1, y1 = 405, 305
         self.sort = False
-        if self.count >= 200:
+        copy = items
+        if self.count >= 300:
             for i in range(1, len(items)):
                 x, y = 45, 90
                 x1, y1 = 405, 305
                 key = items[i]
                 # Move elements of arr[0..i-1], that are greater than key
                 # to one position ahead of their current position
-                j = i-1
+                self.pos = j = i-1
                 while j >=0 and key < items[j] :
                    items[j+1] = items[j]
                    j -= 1
@@ -29,8 +29,8 @@ class Insertition():
             self.count = 0
         else:
             self.count+=1
-        return items
 
+        return items, self.pos
 class Selection():
     def run(self,screen, items):    
         print("selection")

@@ -130,7 +130,7 @@ class Ordination():
 
         # checking when the buttons of are pressed
         if self.sort:
-            items = [self.links[key].run(self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
+            items = [self.links[key].run( self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
             self.items = items[0][0]
             self.pos = items[0][1]
 

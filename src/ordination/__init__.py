@@ -104,15 +104,15 @@ class Ordination():
             y1 -=20
             pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1),1)
         x=45  
-        if self.action != "Sort":
-            for item in self.items:
-                y1 = 305
-                # print(item)
-                for i in range(item):
-                    y1-=20
-                    item_box=pygame.Rect(x, y1, 20, 20)
-                    pygame.draw.rect(screen, color.green.value, item_box)
-                x+=25    
+        
+        for item in self.items:
+            y1 = 305
+            # print(item)
+            for i in range(item):
+                y1-=20
+                item_box=pygame.Rect(x, y1, 20, 20)
+                pygame.draw.rect(screen, color.green.value, item_box)
+            x+=25    
     
     def run(self,screen, screen_size):
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
@@ -133,7 +133,7 @@ class Ordination():
             active = self.active
             self.items = [self.links[key].run(screen, self.items) for key in self.links.keys() if active.split(" ")[0].lower() == key]
             self.items = self.items[0]
-            
+
         if self.news:
             self.items = []
             [self.items.append(random.randint(1, 10))for i in range(14)]

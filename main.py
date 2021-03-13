@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from src.colors import color
 from src.start import Start as st
-from src.ordination import Ordination as odt
+from src.ordination import Ordination as odt # new
 
 screen_size = (640, 420)
 screen = pygame.display.set_mode((screen_size))

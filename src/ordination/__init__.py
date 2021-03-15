@@ -2,6 +2,7 @@ import pygame
 import random
 from pygame.locals import *
 from src.colors import color
+from src import algorithmsButtonsDisplay
 from src.ordination import algorithms
 from src.ordination.algorithms import *
 
@@ -23,36 +24,6 @@ class Ordination():
         self.news = False
         self.pos = 0
         self.mouse_pos = ()
-
-    def algorithmsButtonsDisplay(self, screen):
-        y = 70 # for the boxes
-        x1, y1, = 420, 80 # for the boxes texts
-        box_dim=(190, 40) # dimension of the boxes
-        
-        for algorithm in self.sort_algorithms:
-            size = pygame.font.Font.size(self.font, algorithm)
-            button_box = pygame.Rect(x1, y, box_dim[0], box_dim[1])
-
-            # checking if the algorithms choice
-            click = pygame.mouse.get_pressed()
-            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]) and click[0] == 1 and not self.sort:
-                self.active = algorithm
-
-            # hover button effect
-            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]):
-                pygame.draw.rect(screen, color.grey.value, button_box)
-                line = self.font.render(algorithm, True, color.white.value)
-            else:
-                pygame.draw.rect(screen, color.grey.value, button_box, 2)
-                line = self.font.render(algorithm, True, color.white.value)
-            
-            if(self.active == algorithm):
-                pygame.draw.rect(screen, color.green.value, button_box)
-                line = self.font.render(algorithm, True, color.black.value)
-
-            screen.blit(line, (x1-(size[0]/2)+(box_dim[0]/2), y1))
-            y += 45
-            y1 += 45  
     
     def actionButtonDisplay(self,screen):
         y = 350 # for the boxes text's
@@ -104,13 +75,10 @@ class Ordination():
             y1 -=20
             pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1),1)
         x=45  
-        
+        y1 = 305
         for item in self.items:
-            y1 = 305
-            for i in range(item):
-                y1-=20
-                item_box=pygame.Rect(x, y1, 20, 20)
-                pygame.draw.rect(screen, color.red.value, item_box) if pos < self.pos or self.pos >= len(self.items)-2 else pygame.draw.rect(screen, color.green.value, item_box)
+            item_box=pygame.Rect(x, y1-(item*20), 20, 20*item)
+            pygame.draw.rect(screen, color.green.value, item_box) if pos < self.pos or self.pos >= len(self.items)-2 else pygame.draw.rect(screen, color.red.value, item_box)
             x+=25  
             pos+=1
     
@@ -124,7 +92,7 @@ class Ordination():
         self.mouse_pos = pygame.mouse.get_pos()
 
         # drawing the buttons 
-        self.algorithmsButtonsDisplay(screen)
+        self.active = algorithmsButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
         self.actionButtonDisplay(screen)
         self.drawGrafic(screen)
 
@@ -140,6 +108,7 @@ class Ordination():
             self.news = False
             self.pos = 0
             self.sorted = False
+        print(self.items)
             
         return "ordination_algorithms"
         

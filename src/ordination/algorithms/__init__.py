@@ -1,5 +1,5 @@
 
-class Insertion():
+class Insertion:
     @staticmethod
     def run(items):
         sort = False
@@ -16,7 +16,7 @@ class Insertion():
                 return j+1,i
         return None, None
         
-class Selection():
+class Selection:
     @staticmethod
     def run(items): 
         sort = False  
@@ -30,22 +30,22 @@ class Selection():
                 return i, min_item
         return None, None
 
-class Bubble():
+class Bubble:
     def run(self, screen, items):
         print("bubble")
 
-class Quick():
+class Quick:
     def run(self, screen, items):   
         print("quick")
 
-class Merge():
+class Merge:
     def run(self, screen, items):
         print("merge")
 
-class Shell():
+class Shell:
     def run(self, screen, items):
         print("merge")
 
-class Hybrid():
+class Hybrid:
     def run(self, screen, items):
         print("hybrid")

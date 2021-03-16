@@ -17,11 +17,11 @@ class Rectangle:
 
 class Rectangles:
     sample = [Rectangle(25 * i + 45) for i in range(14)]
-    sorted_sample = sorted(sample)
     swap_indx1 = None
     swap_indx2 = None
 
-    # print(sample[1].hight, sample[2].hight, sep="  ")
+    def __init__(self):
+        self.sorted_sample = sorted(self.get_hight_values())
 
     def create_sample(self):
         self.sample = [Rectangle(25 * i + 45) for i in range(14)]
@@ -35,7 +35,7 @@ class Rectangles:
     def drawGrafic(self, screen):
         x, y = 30, 90
         x1, y1 = 405, 305
-        pos = 0
+        pygame.draw.rect(screen, color.black.value, (40, 65, 370, 250))
         pygame.draw.line(screen, color.grey.value, (x, y), (x, y1), 3)
         pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1), 3)
 
@@ -43,17 +43,35 @@ class Rectangles:
             y1 -= 20
             pygame.draw.line(screen, color.grey1.value, (x + 3, y1), (x1, y1), 1)
 
-        self.draw_sample(pos, screen)
+        self.draw_sample(screen)
+        pygame.display.update()
 
-    def draw_sample(self, pos, screen):
+    def draw_sample(self, screen):
         for element in self.sample:
-            if element.x > pos:
-                element.color = (255, 0, 0)
-            else:
-                element.color = (0, 255, 0)
             element.draw(screen)
 
-    def swap_elements(self, index1, index2):
-
-        while index2 != self.swap_indx2 and index1 != self.swap_indx1:
-
+    def swap_elements(self, index1, index2, screen):
+        if index1 is None:
+            return True
+        self.sample[index1].color = color.yellow.value
+        self.sample[index2].color = color.blue.value
+        espected_x_index1 = self.sample[index2].x
+        espected_x_index2 = self.sample[index1].x
+        count, reached1, reached2 = 300, False, False
+        while True:
+            if count >= 300:
+                if self.sample[index1].x < espected_x_index1:
+                    self.sample[index1].x += 1
+                else:
+                    self.sample[index1].x = espected_x_index1
+                    reached1 = True
+                if self.sample[index2].x > espected_x_index2:
+                    self.sample[index2].x -= 1
+                else:
+                    self.sample[index2].x = espected_x_index2
+                    reached2 = True
+                count = 0
+                if reached1 and reached2:
+                    break
+                self.drawGrafic(screen)
+            count+=0.01

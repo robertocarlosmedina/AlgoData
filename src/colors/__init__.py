@@ -4,6 +4,7 @@ class color(Enum):
     blue=(0, 0, 255)
     white=(255, 255, 255)
     white1=(155, 155, 155)
+    yellow = (255, 255, 0)
     green=(0, 255, 0)
     black=(25,25,25)
     grey=(105, 105, 105)

@@ -54,9 +54,10 @@ class Ordination:
 
         # checking when the buttons of are pressed
         if self.sort:
-            returned = self.links[self.active].run(self.sample.get_hight_values())
-            self.sample.sample = returned[0]
-            self.pos = returned[1]
+            returned = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
+            self.sample.swap_elements(1, 5, screen)
+            # self.sample.sample = returned[0]
+            # self.pos = returned[1]
         if self.news:
             self.sample.create_sample()
             self.news = False

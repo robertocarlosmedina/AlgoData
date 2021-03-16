@@ -16,28 +16,19 @@ class Insertion():
                 return j+1,i
         return None, None
         
-
 class Selection():
-    def __init__(self):
-        self.pos = self.count = 0
-        self.sort = False
-
-    def run(self, items):   
-        self.sort = False
-        if self.count >300:
-            for i in range(len(items)):
-                min_item = i # assuming that the first item ins the lowest 
-                for j in range(i+1,len(items)):
-                    if items[j]<items[min_item]: # verify if if's one lower than min_item
-                        min_item = j
-                        self.sort = True
-                    self.pos=i
-                items[i], items[min_item] = items[min_item], items[i] # change de positions
-                if self.sort:
-                    break
-            self.count = 0
-        self.count += 1
-        return items, self.pos
+    @staticmethod
+    def run(items): 
+        sort = False  
+        for i in range(len(items)):
+            min_item = i # assuming that the first item ins the lowest 
+            for j in range(i+1,len(items)):
+                if items[j]<items[min_item]: # verify if if's one lower than min_item
+                    min_item = j
+                    sort = True
+            if sort:
+                return i, min_item
+        return None, None
 
 class Bubble():
     def run(self, screen, items):

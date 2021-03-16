@@ -1,8 +1,10 @@
 import pygame
 from src.colors import color, rgbColor
 
-class Start():
+
+class Start:
     pygame.init()
+
     def __init__(self):
         self.size = 60
         self.box_info = []
@@ -38,4 +40,3 @@ class Start():
             return "start"
         else:
             return "ordination_algorithms"
-            

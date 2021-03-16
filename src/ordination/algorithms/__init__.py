@@ -1,30 +1,21 @@
-import pygame
-from src.colors import color
 
 class Insertion():
-    def __init__(self):
-        self.count = 0
-        self.sort = False
-        self.pos = 0
-
-    def run(self, items):
-        self.sort = False
-        if self.count >= 300:
-            for i in range(1, len(items)):
-                key = items[i]
-                # Move elements of arr[0..i-1], that are greater than key
-                # to one position ahead of their current position
-                self.pos = j = i-1
-                while j >=0 and key < items[j] :
-                   items[j+1] = items[j]
-                   j -= 1
-                   self.sort = True
-                items[j+1] = key
-                if self.sort:
-                    break
-            self.count = 0
-        self.count+=1
-        return items, self.pos
+    @staticmethod
+    def run(items):
+        sort = False
+        for i in range(1, len(items)):
+            key = items[i]
+            # Move elements of arr[0..i-1], that are greater than key to one position ahead of their current position
+            j = i-1
+            while j >=0 and key < items[j] :
+                items[j+1] = items[j]
+                j -= 1
+                sort = True
+            items[j+1] = key
+            if sort:
+                return j+1,i
+        return None, None
+        
 
 class Selection():
     def __init__(self):

@@ -1,4 +1,5 @@
 import pygame
+from src.colors import color
 from src import verticalButtonsDisplay, horizontalButtonDisplay
 from src.blocks.rectangles import Rectangles
 from src.ordination import algorithms
@@ -54,10 +55,9 @@ class Ordination:
 
         # checking when the buttons of are pressed
         if self.sort:
-            returned = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
-            self.sample.swap_elements(1, 5, screen)
-            # self.sample.sample = returned[0]
-            # self.pos = returned[1]
+            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
+            self.sample.swap_elements(mi, mx, screen)
+
         if self.news:
             self.sample.create_sample()
             self.news = False

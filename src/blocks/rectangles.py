@@ -59,7 +59,7 @@ class Rectangles:
         espected_x_index2 = self.sample[index1].x
         count, reached1, reached2 = 300, False, False
         while True:
-            if count >= 300:
+            if count >= 900:
                 if self.sample[index1].x < espected_x_index1:
                     self.sample[index1].x += 1
                 else:
@@ -75,3 +75,4 @@ class Rectangles:
                     break
                 self.drawGrafic(screen)
             count+=0.01
+        self.sample[index2], self.sample[index1] = self.sample[index1],self.sample[index2]

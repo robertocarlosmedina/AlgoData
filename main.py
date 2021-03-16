@@ -22,12 +22,14 @@ while keep_going:
         if event.type == QUIT:
             exit()
     
-    if pygame.key.get_pressed()[K_KP_ENTER]:
-        pygame.quit()
-        keep_going = not keep_going
-    elif pygame.key.get_pressed()[K_t]:
-        pygame.time.delay(100)
-        theme = not theme
+        if event.type == pygame.KEYDOWN:
+            if pygame.key.get_pressed()[K_KP_ENTER]:
+                pygame.quit()
+                keep_going = not keep_going
+                
+            elif pygame.key.get_pressed()[K_t]:
+                pygame.time.delay(100)
+                theme = not theme
     
     # Worcking on theme change later
     screen.fill(color.black.value) if theme else screen.fill(color.white1.value)

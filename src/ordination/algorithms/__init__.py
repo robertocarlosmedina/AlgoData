@@ -1,7 +1,7 @@
 import pygame
 from src.colors import color
 
-class Insertition():
+class Insertion():
     def __init__(self):
         self.count = 0
         self.sort = False

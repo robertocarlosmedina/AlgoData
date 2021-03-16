@@ -2,8 +2,9 @@ import pygame
 import random
 from pygame.locals import *
 from src.colors import color
-from src import algorithmsButtonsDisplay
+from src import verticalButtonsDisplay, horizontalButtonDisplay
 from src.ordination import algorithms
+from src.sample import Sample
 from src.ordination.algorithms import *
 
 class Ordination():
@@ -19,40 +20,14 @@ class Ordination():
         self.links = {"insertion": algorithms.Insertition(), "selection":algorithms.Selection(), 
                       "bubble":algorithms.Bubble(), "quick":algorithms.Quick(), "merge":algorithms.Merge(), 
                       "shell":algorithms.Shell(), "hybrid":algorithms.Hybrid()} # this is the Links to the algorithms
-        self.items = [2,3, 2, 4, 5, 6,4,4,2,1,3, 10,1,4] # max items = 14
+        # self.items = [2,3, 2, 4, 5, 6,4,4,2,1,3, 10,1,4] # max items = 14
+        self.posiblePositions = [45,70,95,120,145,170,195,220,245,270,295,320,345,370]
+        self.sampleSize = [random.randint(1, 10)for i in range(14)]
+        self.items = [Sample(ssize, (pos_x, 305-(20*ssize))) for ssize, pos_x in zip(self.sampleSize, self.posiblePositions)]
         self.sort = False
         self.news = False
         self.pos = 0
         self.mouse_pos = ()
-    
-    def actionButtonDisplay(self,screen):
-        y = 350 # for the boxes text's
-        x1, y1, = 30, 340 # for the boxes texts
-        box_dim=(90, 40) # dimension of the boxes
-        for button in self.actionButtons:
-            size = pygame.font.Font.size(self.font, button)
-            button_box = pygame.Rect(x1, y1, box_dim[0], box_dim[1])
-
-            # checking if the algorithms choice
-            click = pygame.mouse.get_pressed()
-            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]) and click[0] == 1:
-                self.action = button
-                self.stateControl()
-
-            # hover button effect
-            if self.mouse_pos[0]in range(x1,x1+box_dim[0]) and self.mouse_pos[1] in range(y1,y1+box_dim[1]):
-                pygame.draw.rect(screen, color.grey.value, button_box)
-                line = self.font.render(button, True, color.white.value)
-            else:
-                pygame.draw.rect(screen, color.grey.value, button_box, 2)
-                line = self.font.render(button, True, color.white.value)
-            
-            if(self.action == button):
-                pygame.draw.rect(screen, color.blue.value, button_box)
-                line = self.font.render(button, True, color.white.value)
-
-            screen.blit(line, (x1-(size[0]/2)+(box_dim[0]/2), y))
-            x1 += 95
     
     def stateControl(self):
         if(self.action == "Sort"):
@@ -76,13 +51,9 @@ class Ordination():
             pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1),1)
         x=45  
         y1 = 305
-        for item in self.items:
-            item_box=pygame.Rect(x, y1-(item*20), 20, 20*item)
-            pygame.draw.rect(screen, color.green.value, item_box) if pos < self.pos or self.pos >= len(self.items)-2 else pygame.draw.rect(screen, color.red.value, item_box)
-            x+=25  
-            pos+=1
     
     def run(self,screen, screen_size):
+        copyControl = self.action
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
         size = pygame.font.Font.size(self.font, 'Sorting algorithms ')
         self.font.set_bold(True)
@@ -92,23 +63,25 @@ class Ordination():
         self.mouse_pos = pygame.mouse.get_pos()
 
         # drawing the buttons 
-        self.active = algorithmsButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
-        self.actionButtonDisplay(screen)
-        self.drawGrafic(screen)
+        self.active = verticalButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
+        self.action = horizontalButtonDisplay(screen, self.actionButtons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
+        if copyControl != self.action:
+            self.stateControl() 
 
         # checking when the buttons of are pressed
+        ids = [sample.id for sample in self.items]
         if self.sort:
-            items = [self.links[key].run( self.items) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
+            items = [self.links[key].run(ids) for key in self.links.keys() if self.active.split(" ")[0].lower() == key]
             self.items = items[0][0]
             self.pos = items[0][1]
 
         if self.news:
             self.items = []
-            [self.items.append(random.randint(1, 10))for i in range(14)]
+            self.sampleSize = [random.randint(1, 10)for i in range(14)]
+            self.items = [Sample(ssize, (pos_x, 305-(20*ssize))) for ssize, pos_x in zip(self.sampleSize, self.posiblePositions)]
             self.news = False
             self.pos = 0
             self.sorted = False
-        print(self.items)
-            
+        self.drawGrafic(screen)
         return "ordination_algorithms"
         

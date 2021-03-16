@@ -1,7 +1,6 @@
 import pygame
 from src import verticalButtonsDisplay, horizontalButtonDisplay
 from src.blocks.rectangles import Rectangles
-from src.colors import color
 from src.ordination import algorithms
 from src.ordination.algorithms import *
 
@@ -36,20 +35,6 @@ class Ordination:
             self.sort = False
             self.news = False
 
-    def drawGrafic(self, screen):
-        x, y = 30, 90
-        x1, y1 = 405, 305
-        pos = 0
-        pygame.draw.line(screen, color.grey.value, (x, y), (x, y1), 3)
-        pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1), 3)
-
-        for i in range(10):
-            y1 -=20
-            pygame.draw.line(screen, color.grey1.value, (x+3, y1), (x1, y1), 1)
-        x=45  
-        
-        self.sample.draw_sample(pos, screen)
-    
     def run(self, screen, screen_size):
         copyControl = self.action
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
@@ -65,11 +50,11 @@ class Ordination:
         self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
         if copyControl != self.action:
             self.stateControl() 
-        self.drawGrafic(screen)
+        self.sample.drawGrafic(screen)
 
         # checking when the buttons of are pressed
         if self.sort:
-            returned = self.links[self.active].run(self.sample.sample)
+            returned = self.links[self.active].run(self.sample.get_hight_values())
             self.sample.sample = returned[0]
             self.pos = returned[1]
         if self.news:

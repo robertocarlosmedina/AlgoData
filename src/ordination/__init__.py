@@ -56,7 +56,6 @@ class Ordination:
             self.stateControl() 
         self.sample.drawGrafic(screen)
         
-
         # checking when the buttons of are pressed
         if self.sort:
             mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())

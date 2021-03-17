@@ -77,8 +77,9 @@ class Ordination:
             if pygame.mouse.get_pressed()[0]:
                 self.spead_pos = (self.mouse_pos[0], 325)
                 pressed = True
-        pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 10) 
-        print(3000-(((self.spead_pos[0]-30)*3000)/345))
-        # 3000/100 = self.spead_pos[0]-40/x
-        # spead = (100÷355)*self.spead_pos[0]-40
+        pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 9) 
+        # 345/3000 = self.spead_pos[0]-30/spead
+        # spead = (((self.spead_pos[0]-30)*3000)/345)
+        # to revert the way that the spead increase:
+        # spead = 3000-(((self.spead_pos[0]-30)*3000)/345)
         return 3000-(((self.spead_pos[0]-30)*3000)/345)

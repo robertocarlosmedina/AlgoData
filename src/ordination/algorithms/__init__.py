@@ -15,7 +15,8 @@ class Insertion:
             if sort:
                 return j+1,i
         return None, None
-        
+
+
 class Selection:
     @staticmethod
     def run(items): 
@@ -30,9 +31,14 @@ class Selection:
                 return i, min_item
         return None, None
 
+
 class Bubble:
-    def run(self, screen, items):
-        print("bubble")
+    @staticmethod
+    def run(items):
+        for i in range(len(items)-1):
+            if items[i]>items[i+1]:
+                return i, i+1
+        return None, None
 
 class Quick:
     def run(self, screen, items):   

@@ -15,7 +15,7 @@ def write_last_index(index, items):
     if index == len(items)-1:
         index = 0
     file = open("extra_values.txt", "w")
-    file.write(f"{index+1}")
+    file.write("{index+1}")
     file.close()
 
 
@@ -63,6 +63,7 @@ class Bubble:
 
 class Quick:
     sort = False
+    p = 0
     def run(self, items):
         low, high = 0, len(items)-1
         mi, mx = self.quicksort(items, low, high)
@@ -71,15 +72,17 @@ class Quick:
     def quicksort(self,items, low, high):
         self.sort = False
         if len(items)==1:
-            return None, None
+            return
+            
         if low<high:
             #  p is the partition index
-            p = self.partition(items, low, high)
+            self.p = self.partition(items, low, high)
             if self.sort:
-                return p-1, p+1
+                self.sort = False
+                return self.p-1, self.p+1
 
-            self.quicksort(items, low, p-1)
-            self.quicksort(items, p+1, high)
+            self.quicksort(items, low, self.p-1)
+            self.quicksort(items, self.p+1, high)
 
     def partition(self, items, low, high):
         pivot = items[high] # ower pivot
@@ -88,8 +91,8 @@ class Quick:
         for j in range(low, high):
             if items[j]<=pivot:
                 i = i+1
-                self.sort = True
                 items[i], items[j]=items[j], items[i]
+                self.sort = True
 
         items[i+1], items[high] = items[high], items[i+1] 
         return i+1
@@ -107,18 +110,13 @@ class Hybrid:
         print("hybrid")
 
 
-# array = [2,245, 656, 45,4,3,4,7,8,823,2]
-# sort = Quick()
+array = [2,245, 656, 45,4,3,4,7,8,823,2]
+sort = Quick()
 
-# while True:
-#     mi, mx = sort.run(array)
-#     print(mi, mx)
-#     if mi != None:
-#         array[mi], array[mx] = array[mx], array[mi]
-#         print (array)
-#     else:
-#         break
-    
-# print (array)
-
-  
+while True:
+    mi, mx = sort.run(array)
+    if mi != None and mx is not None:
+        print (mi, mx, array)
+        array[mi], array[mx] = array[mx], array[mi]
+    else:
+        break

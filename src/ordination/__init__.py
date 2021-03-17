@@ -49,7 +49,7 @@ class Ordination:
 
         # drawing the buttons 
         sort_spead = self.speadControl(screen)
-        print(sort_spead)
+        # print(sort_spead)
         self.active = verticalButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
         self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
         if copyControl != self.action:
@@ -78,7 +78,7 @@ class Ordination:
                 self.spead_pos = (self.mouse_pos[0], 325)
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 10) 
-        
-        # 100÷355 = spead÷self.spead_pos[0]
-        # spead = (100÷355)*self.spead_pos[0]
-        return (3645/355)*self.spead_pos[0]
+        print(3000-(((self.spead_pos[0]-30)*3000)/345))
+        # 3000/100 = self.spead_pos[0]-40/x
+        # spead = (100÷355)*self.spead_pos[0]-40
+        return 3000-(((self.spead_pos[0]-30)*3000)/345)

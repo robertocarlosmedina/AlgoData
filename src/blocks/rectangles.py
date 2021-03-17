@@ -1,6 +1,5 @@
 import random
 import pygame
-from pygame.constants import K_s
 from src.colors import color
 
 
@@ -26,6 +25,9 @@ class Rectangles:
 
     def create_sample(self):
         self.sample = [Rectangle(25 * i + 45) for i in range(14)]
+        self.sorted_sample = sorted(self.get_hight_values())
+        for i in range(len(self.sample)):
+            self.set_right_color_to(i)
 
     def get_hight_values(self):
         return [elem.hight for elem in self.sample]
@@ -50,6 +52,12 @@ class Rectangles:
     def draw_sample(self, screen):
         for element in self.sample:
             element.draw(screen)
+
+    def set_right_color_to(self, index):
+        if self.sample[index].hight == self.sorted_sample[index]:
+            self.sample[index].color = color.green.value
+        else:
+            self.sample[index].color = color.red.value
 
     def swap_elements(self, index1, index2, screen, sort_spead):
         action = "Sort"
@@ -78,3 +86,5 @@ class Rectangles:
                 self.drawGrafic(screen)
             count+=0.01
         self.sample[index2], self.sample[index1] = self.sample[index1],self.sample[index2]
+        self.set_right_color_to(index1)
+        self.set_right_color_to(index2)

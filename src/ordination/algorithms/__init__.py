@@ -15,7 +15,7 @@ def write_last_index(index, items):
     if index == len(items)-1:
         index = 0
     file = open("extra_values.txt", "w")
-    file.write(f"{index+1}")
+    file.write(str(index+1))
     file.close()
 
 
@@ -50,6 +50,7 @@ class Selection:
             if sort:
                 return i, min_item
         return None, None
+
 
 class Bubble:
     @staticmethod

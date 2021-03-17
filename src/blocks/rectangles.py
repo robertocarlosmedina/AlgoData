@@ -1,5 +1,6 @@
 import random
 import pygame
+from pygame.constants import K_s
 from src.colors import color
 
 
@@ -50,7 +51,8 @@ class Rectangles:
         for element in self.sample:
             element.draw(screen)
 
-    def swap_elements(self, index1, index2, screen):
+    def swap_elements(self, index1, index2, screen, sort_spead):
+        action = "Sort"
         if index1 is None:
             return True
         self.sample[index1].color = color.yellow.value
@@ -59,7 +61,7 @@ class Rectangles:
         espected_x_index2 = self.sample[index1].x
         count, reached1, reached2 = 300, False, False
         while True:
-            if count >= 900:
+            if count >= sort_spead:
                 if self.sample[index1].x < espected_x_index1:
                     self.sample[index1].x += 1
                 else:

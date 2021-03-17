@@ -81,4 +81,4 @@ class Ordination:
         
         # 100÷355 = spead÷self.spead_pos[0]
         # spead = (100÷355)*self.spead_pos[0]
-        return (3000/355)*self.spead_pos[0]
+        return (3645/355)*self.spead_pos[0]

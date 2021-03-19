@@ -24,7 +24,7 @@ class Ordination:
         self.sample = Rectangles()
         self.sort = False
         self.news = False
-        self.spead_pos = (120, 325)
+        self.speed_pos = (120, 325)
         self.mouse_pos = ()
     
     def stateControl(self):
@@ -48,9 +48,9 @@ class Ordination:
         self.mouse_pos = pygame.mouse.get_pos()
 
         # drawing the buttons 
-        sort_speed = self.speadControl(screen)
+        sort_speed = self.speedControl(screen)
         # print(sort_speed)
-        self.active = verticalButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
+        self.active = verticalButtonsDisplay(screen, self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos, self.active, self.font, self.sort)
         self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
         if copyControl != self.action:
             self.stateControl() 
@@ -70,18 +70,18 @@ class Ordination:
 
         return "ordination_algorithms"
     
-    def speadControl(self, screen):
+    def speedControl(self, screen):
         pressed = False
         pygame.draw.line(screen, color.grey.value, (40, 325), (395, 325), 1)
         
         if self.mouse_pos[0] in range(40, 395) and self.mouse_pos[1] in range(305, 335):
             if pygame.mouse.get_pressed()[0]:
-                self.spead_pos = (self.mouse_pos[0], 325)
+                self.speed_pos = (self.mouse_pos[0], 325)
                 pressed = True
-        pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed\
-            else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 9) 
-        # 345/3000 = self.spead_pos[0]-30/spead
-        # spead = (((self.spead_pos[0]-30)*3000)/345)
-        # to revert the way that the spead increase:
-        # spead = 3000-(((self.spead_pos[0]-30)*3000)/345)
-        return 3000-(((self.spead_pos[0]-30)*3000)/345)
+        pygame.draw.circle(screen, color.green.value, self.speed_pos, 10) if pressed\
+            else pygame.draw.circle(screen, color.white1.value, self.speed_pos, 9) 
+        # 345/3000 = self.speed_pos[0]-30/speed
+        # speed = (((self.speed_pos[0]-30)*3000)/345)
+        # to revert the way that the speed increase:
+        # speed = 3000-(((self.speed_pos[0]-30)*3000)/345)
+        return 3000-(((self.speed_pos[0]-30)*3000)/345)

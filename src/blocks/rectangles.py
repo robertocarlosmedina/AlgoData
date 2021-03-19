@@ -59,26 +59,31 @@ class Rectangles:
         else:
             self.sample[index].color = color.red.value
 
-    def swap_elements(self, index1, index2, screen, sort_spead):
-        action = "Sort"
+    def is_sorted(self):
+        for element in self.sample:
+            if element.color == color.red.value:
+                return False
+        return True
+
+    def swap_elements(self, index1, index2, screen, sort_speed):
         if index1 is None:
             return True
         self.sample[index1].color = color.yellow.value
         self.sample[index2].color = color.blue.value
-        espected_x_index1 = self.sample[index2].x
-        espected_x_index2 = self.sample[index1].x
+        expected_x_index1 = self.sample[index2].x
+        expected_x_index2 = self.sample[index1].x
         count, reached1, reached2 = 300, False, False
         while True:
-            if count >= sort_spead:
-                if self.sample[index1].x < espected_x_index1:
+            if count >= sort_speed:
+                if self.sample[index1].x < expected_x_index1:
                     self.sample[index1].x += 1
                 else:
-                    self.sample[index1].x = espected_x_index1
+                    self.sample[index1].x = expected_x_index1
                     reached1 = True
-                if self.sample[index2].x > espected_x_index2:
+                if self.sample[index2].x > expected_x_index2:
                     self.sample[index2].x -= 1
                 else:
-                    self.sample[index2].x = espected_x_index2
+                    self.sample[index2].x = expected_x_index2
                     reached2 = True
                 count = 0
                 if reached1 and reached2:

@@ -48,8 +48,8 @@ class Ordination:
         self.mouse_pos = pygame.mouse.get_pos()
 
         # drawing the buttons 
-        sort_spead = self.speadControl(screen)
-        # print(sort_spead)
+        sort_speed = self.speadControl(screen)
+        # print(sort_speed)
         self.active = verticalButtonsDisplay(screen,self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos,self.active, self.font, self.sort)
         self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
         if copyControl != self.action:
@@ -59,12 +59,14 @@ class Ordination:
         # checking when the buttons of are pressed
         if self.sort:
             mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
-            self.sample.swap_elements(mi, mx, screen, sort_spead)
+            if self.sample.is_sorted():
+                self.sort = False
+            self.sample.swap_elements(mi, mx, screen, sort_speed)
 
         if self.news:
             self.sample.create_sample()
             self.news = False
-            self.sorted = False
+            self.sort = False
 
         return "ordination_algorithms"
     
@@ -76,7 +78,8 @@ class Ordination:
             if pygame.mouse.get_pressed()[0]:
                 self.spead_pos = (self.mouse_pos[0], 325)
                 pressed = True
-        pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 9) 
+        pygame.draw.circle(screen, color.green.value, self.spead_pos, 10) if pressed\
+            else pygame.draw.circle(screen, color.white1.value, self.spead_pos, 9) 
         # 345/3000 = self.spead_pos[0]-30/spead
         # spead = (((self.spead_pos[0]-30)*3000)/345)
         # to revert the way that the spead increase:

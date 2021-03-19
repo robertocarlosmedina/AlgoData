@@ -1,8 +1,11 @@
 import pygame
 from src.colors import color, rgbColor
 
-class Start():
+
+class Start:
     pygame.init()
+    y1, x1 = None, None
+
     def __init__(self):
         self.size = 60
         self.box_info = []
@@ -22,13 +25,15 @@ class Start():
                 self.timer +=1
             for i in range(2):
                 for f in range(2):
-                    self.box_info.append(((self.x1, self.y1), "green")) if self.changeColor else self.box_info.append(((self.x1, self.y1), "blue"))
+                    self.box_info.append(((self.x1, self.y1), "green")) if self.changeColor else self.box_info.append((
+                        (self.x1, self.y1), "blue"))
                     self.x1+=60
                     self.changeColor = not self.changeColor
                 self.changeColor = not self.changeColor
                 self.x1 = self.x
                 self.y1+=60
-            [pygame.draw.rect(screen, rgbColor(info[1]), pygame.Rect(info[0][0], info[0][1], self.size, self.size)) for info in self.box_info]
+            [pygame.draw.rect(screen, rgbColor(info[1]), pygame.Rect(info[0][0], info[0][1], self.size, self.size))
+             for info in self.box_info]
             self.size -= 0.02
             self.x += 0.01
             self.y += 0.01
@@ -38,4 +43,3 @@ class Start():
             return "start"
         else:
             return "ordination_algorithms"
-            

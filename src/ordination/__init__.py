@@ -23,8 +23,8 @@ class Ordination:
                       3: algorithms.Quick(), 4: algorithms.Merge(), 5: algorithms.Shell(), 6: algorithms.Hybrid()}
         self.sample = Rectangles()
         self.sort = False
-        self.news = False
-        self.speed_pos = (120, 325)
+        self.news, self.new_sample = False, True
+        self.speed_pos = (218, 325)
         self.mouse_pos = ()
     
     def stateControl(self):
@@ -58,13 +58,15 @@ class Ordination:
         
         # checking when the buttons of are pressed
         if self.sort:
-            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
+            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values(), self.new_sample)
+            self.new_sample = False
             if self.sample.is_sorted():
                 self.sort = False
             self.sample.swap_elements(mi, mx, screen, sort_speed)
 
         if self.news:
             self.sample.create_sample()
+            self.new_sample = True
             self.news = False
             self.sort = False
 

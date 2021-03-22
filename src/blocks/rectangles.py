@@ -58,7 +58,7 @@ class Rectangles:
             self.sample[index].color = color.green.value
         else:
             self.sample[index].color = color.red.value
-
+    
     def is_sorted(self):
         for element in self.sample:
             if element.color == color.red.value:
@@ -72,7 +72,7 @@ class Rectangles:
         self.sample[index2].color = color.blue.value
         expected_x_index1 = self.sample[index2].x
         expected_x_index2 = self.sample[index1].x
-        count, reached1, reached2 = 300, False, False
+        count, reached1, reached2 = 0, False, False
         while True:
             if count >= sort_speed:
                 if self.sample[index1].x < expected_x_index1:

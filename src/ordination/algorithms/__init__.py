@@ -21,7 +21,7 @@ def write_last_index(index, items):
 
 class Insertion:
     @staticmethod
-    def run(items):
+    def run(items, useless):
         sort = False
         for i in range(1, len(items)):
             key = items[i]
@@ -39,7 +39,7 @@ class Insertion:
 
 class Selection:
     @staticmethod
-    def run(items):
+    def run(items, useless):
         sort = False  
         for i in range(len(items)):
             min_item = i  # assuming that the first item ins the lowest
@@ -54,7 +54,7 @@ class Selection:
 
 class Bubble:
     @staticmethod
-    def run(items):
+    def run(items, useless):
         last_index = read_last_index(items)
         for i in range(last_index, len(items)-1):
             write_last_index(i, items)
@@ -64,26 +64,20 @@ class Bubble:
 
 
 class Quick:
-    equal = False  # to control if there is a new sample
     pos_las_index_returned = 0  # to control the positions index to make the changes
     index = []  # to store all the index made by the sort
 
     def run(self, items, new_sample):
         # to control if the sample sent is a new one
-        if new_sample:
-            self.equal = False
-        else:
-            self.equal = True
-
         # if the sample is a new one this will do the sort using this algorithms
         # and reset all the control variable
-        if not self.equal:
-            low, high = 0, len(items)-1
+        if new_sample:
+            low, high = 0, len(items) - 1
             self.index = []
             self.pos_las_index_returned = 0
             mx = self.quicksort(items, low, high)
             del mx
-        
+
         # This is to control the index that will be sent, keeping in mind 
         # the one's that was already sent
         i = 0

@@ -13,7 +13,6 @@ class Ordination:
     def __init__(self):
         self.header_box = pygame.Rect(30, 20, 580, 40)
         self.font = pygame.font.SysFont("montserrat-font/MontserratMedium-nRxlJ.ttf", 30)
-        self.font.set_bold(True)
         self.sort_algorithms = ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quicksort", "Merge Sort",
                                 "Shell Sort", "Hybrid Sort"]
         self.buttons = ["Sort", "Stop", "Shuffle", "Info"]
@@ -42,7 +41,6 @@ class Ordination:
         copyControl = self.action
         pygame.draw.rect(screen, color.grey.value, self.header_box, 2)
         size = pygame.font.Font.size(self.font, 'Sorting algorithms ')
-        self.font.set_bold(True)
         line = self.font.render('Sorting algorithms ', True, color.white.value)
         screen.blit(line, (screen_size[0]/2-size[0]/2, 30))
         self.mouse_pos = pygame.mouse.get_pos()
@@ -60,9 +58,10 @@ class Ordination:
             self.stateControl() 
         self.sample.drawGrafic(screen)
         
-        # checking when the buttons of are pressed
+        # checking when the buttons are pressed
         if self.sort:
-            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
+            algorithm = self.links[self.sort_algorithms.index(self.active)]
+            mi, mx = algorithm.run(self.sample.get_hight_values(), self.new_sample)
             self.new_sample = False
             if self.sample.is_sorted():
                 self.sort = False
@@ -101,5 +100,7 @@ class Ordination:
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.sampleSize, 10) if pressed\
             else pygame.draw.circle(screen, color.white1.value, self.sampleSize, 9)
+        size = int(38-(((self.sampleSize[1]-90)*38)/345))
+        algorithms.write_last_index(0, range(size))
         
-        return int(38-(((self.sampleSize[1]-90)*38)/345))
+        return size

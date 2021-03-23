@@ -62,8 +62,7 @@ class Ordination:
         
         # checking when the buttons of are pressed
         if self.sort:
-            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values(),
-                                                                             self.new_sample)
+            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values())
             self.new_sample = False
             if self.sample.is_sorted():
                 self.sort = False

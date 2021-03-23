@@ -59,7 +59,7 @@ class Rectangles:
             element.draw(screen)
 
     def set_right_color_to(self, index):
-        if self.sample[index].hight == self.sorted_sample[index]:
+        if self.sample[index].hight - self.sorted_sample[index] == 0:
             self.sample[index].color = color.green.value
         else:
             self.sample[index].color = color.red.value

@@ -24,7 +24,7 @@ class Ordination:
         self.sample = Rectangles()
         self.sort = False
         self.news, self.new_sample = False, True
-        self.sampleSize = (430,305)
+        self.sampleSize = (430, 305)
         self.speed_pos = (218, 325)
         self.mouse_pos = ()
     
@@ -45,18 +45,16 @@ class Ordination:
         self.font.set_bold(True)
         line = self.font.render('Sorting algorithms ', True, color.white.value)
         screen.blit(line, (screen_size[0]/2-size[0]/2, 30))
-
         self.mouse_pos = pygame.mouse.get_pos()
-
-        
         sort_speed = self.speedControl(screen)
-
         sample_size = self.sampleSizeDetermination(screen)
         # print(sample_size)
 
         # Display/drawing of the buttons
-        self.active = verticalButtonsDisplay(screen, self.sort_algorithms, 70, (450, 80),(160, 40), self.mouse_pos, self.active, self.font, self.sort)
-        self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
+        self.active = verticalButtonsDisplay(screen, self.sort_algorithms, 70, (450, 80), (160, 40), self.mouse_pos,
+                                             self.active, self.font, self.sort)
+        self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos,
+                                              self.action, self.font)
         
         if copyControl != self.action:
             self.stateControl() 
@@ -64,7 +62,8 @@ class Ordination:
         
         # checking when the buttons of are pressed
         if self.sort:
-            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values(), self.new_sample)
+            mi, mx = self.links[self.sort_algorithms.index(self.active)].run(self.sample.get_hight_values(),
+                                                                             self.new_sample)
             self.new_sample = False
             if self.sample.is_sorted():
                 self.sort = False
@@ -83,7 +82,7 @@ class Ordination:
         pygame.draw.line(screen, color.grey.value, (40, 325), (395, 325), 1)
         
         if self.mouse_pos[0] in range(40, 395) and self.mouse_pos[1] in range(305, 335):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed(3)[0]:
                 self.speed_pos = (self.mouse_pos[0], 325)
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.speed_pos, 10) if pressed\
@@ -98,7 +97,7 @@ class Ordination:
         pressed = False
         pygame.draw.line(screen, color.grey.value, (430, 90), (430, 305), 1)
         if self.mouse_pos[0] in range(425, 435) and self.mouse_pos[1] in range(90, 305):
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed(3)[0]:
                 self.sampleSize = (430, self.mouse_pos[1])
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.sampleSize, 10) if pressed\

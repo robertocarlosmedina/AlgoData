@@ -23,13 +23,13 @@ class Rectangles:
     def __init__(self):
         self.sorted_sample = sorted(self.get_hight_values())
 
-    def create_sample(self, sampleSize):
-        x = int(350/(sampleSize+5)+2)
-        ajust = (x-sampleSize)/2
+    def create_sample(self, sample_size):
+        x = int(350 / (sample_size + 5) + 2)
+        ajust = (x - sample_size) / 2
         if ajust < 0:
             ajust = ajust*-1
         # print(x, sampleSize, ajust)
-        self.sample = [Rectangle((x+5) * i + (45-ajust), x) for i in range(int(sampleSize/2)+7)]
+        self.sample = [Rectangle((x+5) * i + (45-ajust), x) for i in range(int(sample_size / 2) + 7)]
         self.sorted_sample = sorted(self.get_hight_values())
         for i in range(len(self.sample)):
             self.set_right_color_to(i)
@@ -95,6 +95,6 @@ class Rectangles:
                     break
                 self.drawGrafic(screen)
             count+=0.01
-        self.sample[index2], self.sample[index1] = self.sample[index1],self.sample[index2]
+        self.sample[index2], self.sample[index1] = self.sample[index1], self.sample[index2]
         self.set_right_color_to(index1)
         self.set_right_color_to(index2)

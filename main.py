@@ -5,7 +5,7 @@ from src.menu import Menu
 from src.start import Start as st
 from src.ordination import Ordination as odt
 
-screen_size = (640, 420)
+screen_size = (660, 420)
 screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption('AlgoDataStuct')
 

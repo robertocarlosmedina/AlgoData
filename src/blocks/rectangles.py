@@ -24,12 +24,13 @@ class Rectangles:
         self.sorted_sample = sorted(self.get_hight_values())
 
     def create_sample(self, sample_size):
-        x = int(350 / (sample_size + 5) + 2)
-        ajust = (x - sample_size) / 2
-        if ajust < 0:
-            ajust = ajust*-1
-        # print(x, sampleSize, ajust)
-        self.sample = [Rectangle((x+5) * i + (45-ajust), x) for i in range(int(sample_size / 2) + 7)]
+        x1 = int(100-((sample_size-14)*100)/20) # to calculate the percentage of the sample acordding to the full size
+        if x1 < -8: # to control when the it is lower then -8
+            x1 = -8
+        x = int((20*x1)/100) # calculating the x position and size acording to the percentage of the full size
+        # print(sample_size, x1, x)
+        x_center = (680/2-((x+5) * sample_size + 45)/2)-82 # this is for center the sample in the grafic
+        self.sample = [Rectangle((x+5) * i + x_center, x) for i in range(sample_size)]       
         self.sorted_sample = sorted(self.get_hight_values())
         for i in range(len(self.sample)):
             self.set_right_color_to(i)
@@ -42,7 +43,7 @@ class Rectangles:
 
     def drawGrafic(self, screen):
         x, y = 30, 90
-        x1, y1 = 417, 305
+        x1, y1 = 432, 305
         pygame.draw.rect(screen, color.black.value, (40, 65, 370, 250))
         # pygame.draw.line(screen, color.grey.value, (x, y), (x, y1), 3)
         pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1), 3)

@@ -24,6 +24,7 @@ class Ordination:
         self.sample = Rectangles()
         self.sort = False
         self.news, self.new_sample = False, True
+        self.sampleSize = (430,305)
         self.speed_pos = (218, 325)
         self.mouse_pos = ()
     
@@ -47,11 +48,16 @@ class Ordination:
 
         self.mouse_pos = pygame.mouse.get_pos()
 
-        # drawing the buttons 
+        
         sort_speed = self.speedControl(screen)
-        # print(sort_speed)
-        self.active = verticalButtonsDisplay(screen, self.sort_algorithms, 70, (420, 80),(190, 40), self.mouse_pos, self.active, self.font, self.sort)
+
+        sample_size = self.sampleSizeDetermination(screen)
+        # print(sample_size)
+
+        # Display/drawing of the buttons
+        self.active = verticalButtonsDisplay(screen, self.sort_algorithms, 70, (450, 80),(160, 40), self.mouse_pos, self.active, self.font, self.sort)
         self.action = horizontalButtonDisplay(screen, self.buttons,  350, (30, 340), (90, 40), self.mouse_pos, self.action, self.font)
+        
         if copyControl != self.action:
             self.stateControl() 
         self.sample.drawGrafic(screen)
@@ -65,7 +71,7 @@ class Ordination:
             self.sample.swap_elements(mi, mx, screen, sort_speed)
 
         if self.news:
-            self.sample.create_sample()
+            self.sample.create_sample(sample_size)
             self.new_sample = True
             self.news = False
             self.sort = False
@@ -87,3 +93,15 @@ class Ordination:
         # to revert the way that the speed increase:
         # speed = 3000-(((self.speed_pos[0]-30)*3000)/345)
         return 3000-(((self.speed_pos[0]-30)*3000)/345)
+
+    def sampleSizeDetermination(self, screen):
+        pressed = False
+        pygame.draw.line(screen, color.grey.value, (430, 90), (430, 305), 1)
+        if self.mouse_pos[0] in range(425, 435) and self.mouse_pos[1] in range(90, 305):
+            if pygame.mouse.get_pressed()[0]:
+                self.sampleSize = (430, self.mouse_pos[1])
+                pressed = True
+        pygame.draw.circle(screen, color.green.value, self.sampleSize, 10) if pressed\
+            else pygame.draw.circle(screen, color.white1.value, self.sampleSize, 9)
+        
+        return int(38-(((self.sampleSize[1]-90)*38)/345))

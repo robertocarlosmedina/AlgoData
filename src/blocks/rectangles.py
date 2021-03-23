@@ -4,9 +4,9 @@ from src.colors import color
 
 
 class Rectangle:
-    def __init__(self, x):
+    def __init__(self, x, widht):
         self.color = (255, 0, 0)
-        self.widht = 20
+        self.widht = widht
         self.hight = random.randint(1, 10) * 20
         self.y = 305 - self.hight
         self.x = x
@@ -16,15 +16,20 @@ class Rectangle:
 
 
 class Rectangles:
-    sample = [Rectangle(25 * i + 45) for i in range(14)]
+    sample = [Rectangle(25 * i + 45, 20) for i in range(14)]
     swap_indx1 = None
     swap_indx2 = None
 
     def __init__(self):
         self.sorted_sample = sorted(self.get_hight_values())
 
-    def create_sample(self):
-        self.sample = [Rectangle(25 * i + 45) for i in range(14)]
+    def create_sample(self, sampleSize):
+        x = int(350/(sampleSize+5)+2)
+        ajust = (x-sampleSize)/2
+        if ajust < 0:
+            ajust = ajust*-1
+        # print(x, sampleSize, ajust)
+        self.sample = [Rectangle((x+5) * i + (45-ajust), x) for i in range(int(sampleSize/2)+7)]
         self.sorted_sample = sorted(self.get_hight_values())
         for i in range(len(self.sample)):
             self.set_right_color_to(i)
@@ -37,9 +42,9 @@ class Rectangles:
 
     def drawGrafic(self, screen):
         x, y = 30, 90
-        x1, y1 = 405, 305
+        x1, y1 = 417, 305
         pygame.draw.rect(screen, color.black.value, (40, 65, 370, 250))
-        pygame.draw.line(screen, color.grey.value, (x, y), (x, y1), 3)
+        # pygame.draw.line(screen, color.grey.value, (x, y), (x, y1), 3)
         pygame.draw.line(screen, color.grey.value, (x, y1), (x1, y1), 3)
 
         for i in range(10):

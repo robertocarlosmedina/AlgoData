@@ -25,11 +25,11 @@ class Rectangles:
         self.sorted_sample = sorted(self.get_height_values())
 
     def create_sample(self, sample_size):
-        x1 = int(100-((sample_size-14)*100)/20)  # to calculate the percentage of the sample acordding to the full size
+        x1 = int(100-((sample_size-14)*100)/20)  # to calculate the percentage of the sample according to the full size
         if x1 < -8:  # to control when the it is lower then -8
             x1 = -8
         x = int((20*x1)/100)  # calculating the x position and size according to the percentage of the full size
-        # print(sample_size, x1, x)
+        print(sample_size, x1, x)
         x_center = (680/2-((x+5) * sample_size + 45)/2)-82  # this is for center the sample in the graphic
         self.sample = [Rectangle((x+5) * i + x_center, x) for i in range(sample_size)]       
         self.sorted_sample = sorted(self.get_height_values())

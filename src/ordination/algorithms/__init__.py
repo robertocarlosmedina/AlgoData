@@ -43,6 +43,7 @@ class Bubble:
                 if sort:
                     return mi, mx
                 self.index = 0
+        self.index = 0
         return None, None
 
 

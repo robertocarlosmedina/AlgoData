@@ -64,7 +64,6 @@ class Ordination:
             mi, mx = algorithm.run(self.sample.get_height_values(), self.new_sample)
             self.new_sample = False
             self.sample.swap_elements(mi, mx, screen, sort_speed)
-            print(1)
             if self.sample.is_sorted():
                 self.sort = False
 
@@ -94,15 +93,14 @@ class Ordination:
 
     def sampleSizeDetermination(self, screen):
         pressed = False
-        pygame.draw.line(screen, color.grey.value, (450, 90), (450, 305), 1)
-        if self.mouse_pos[0] in range(445, 455) and self.mouse_pos[1] in range(90, 305):
+        pygame.draw.line(screen, color.grey.value, (450, 137), (450, 305), 1)
+        if self.mouse_pos[0] in range(445, 455) and self.mouse_pos[1] in range(137, 305):
             if pygame.mouse.get_pressed(3)[0]:
                 self.sampleSize = (450, self.mouse_pos[1])
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.sampleSize, 10) if pressed\
             else pygame.draw.circle(screen, color.white1.value, self.sampleSize, 9)
         size = int(100-(((self.sampleSize[1]-90)*100)/250))
-
         # to make the shuffle while moving the button
         if pressed:
             self.sample.create_sample(size)

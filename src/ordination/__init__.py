@@ -56,16 +56,17 @@ class Ordination:
         
         if copyControl != self.action:
             self.stateControl() 
-        self.sample.drawGrafic(screen)
+        self.sample.drawGraphic(screen)
         
         # checking when the buttons are pressed
         if self.sort:
             algorithm = self.links[self.sort_algorithms.index(self.active)]
-            mi, mx = algorithm.run(self.sample.get_hight_values(), self.new_sample)
+            mi, mx = algorithm.run(self.sample.get_height_values(), self.new_sample)
             self.new_sample = False
+            self.sample.swap_elements(mi, mx, screen, sort_speed)
+            print(1)
             if self.sample.is_sorted():
                 self.sort = False
-            self.sample.swap_elements(mi, mx, screen, sort_speed)
 
         if self.news:
             self.sample.create_sample(sample_size)
@@ -102,9 +103,8 @@ class Ordination:
             else pygame.draw.circle(screen, color.white1.value, self.sampleSize, 9)
         size = int(100-(((self.sampleSize[1]-90)*100)/250))
 
-        # to make the suffle while moving the button
+        # to make the shuffle while moving the button
         if pressed:
             self.sample.create_sample(size)
-        algorithms.write_last_index(0, range(size))
         
         return size

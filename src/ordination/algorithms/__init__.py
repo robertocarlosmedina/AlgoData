@@ -1,24 +1,3 @@
-def read_last_index(items):
-    file = open("extra_values.txt", "r")
-    line = file.readline()
-    if line == "":
-        last_index = 0
-    else:
-        last_index = int(line)
-        if last_index == len(items)-1:
-            last_index = 0
-    file.close()
-    return last_index
-
-
-def write_last_index(index, items):
-    if index == len(items)-1:
-        index = 0
-    file = open("extra_values.txt", "w")
-    file.write(str(index+1))
-    file.close()
-
-
 class Insertion:
     @staticmethod
     def run(items, useless):
@@ -53,13 +32,17 @@ class Selection:
 
 
 class Bubble:
-    @staticmethod
-    def run(items, useless):
-        last_index = read_last_index(items)
-        for i in range(last_index, len(items)-1):
-            write_last_index(i, items)
-            if items[i]>items[i+1]:
-                return i, i+1
+    index = 0
+
+    def run(self, items, useless):
+        sort = False
+        if not useless:
+            for i in range(self.index, len(items)-1):
+                if items[i]>items[i+1]:
+                    sort, mi, mx, self.index = True, i, i+1, i
+                if sort:
+                    return mi, mx
+                self.index = 0
         return None, None
 
 

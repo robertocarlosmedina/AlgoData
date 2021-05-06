@@ -3,6 +3,7 @@ from src.colors import color
 
 
 def verticalButtonsDisplay(screen, buttons, y, position, box_dim, mouse_pos, active, font, sort):
+    # surface = pygame.Surface(position)
     # y for the boxes,
     x1, y1, = position[0], position[1]  # for the boxes texts
     for button in buttons:

@@ -17,20 +17,23 @@ current_layout = "ordination_algorithms"
 theme = True
 keep_going = True
 
+# Clock
+clock = pygame.time.Clock()
+
 while keep_going:
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             exit()
 
         elif event.type == pygame.KEYDOWN:
-            if pygame.key.get_pressed()[K_KP_ENTER]:
+            if pygame.key.get_pressed()[pygame.K_KP_ENTER]:
                 exit()
                 
-            elif pygame.key.get_pressed()[K_t]:
+            elif pygame.key.get_pressed()[pygame.K_t]:
                 theme = not theme
     
+    clock.tick(30)
     # Working on theme change later
     screen.fill(color.black.value) if theme else screen.fill(color.white1.value)
-
     current_layout = links[current_layout].run(screen, screen_size)
     pygame.display.update()

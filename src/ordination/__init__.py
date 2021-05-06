@@ -13,8 +13,8 @@ class Ordination:
     def __init__(self):
         self.header_box = pygame.Rect(30, 20, 600, 40)
         self.font = pygame.font.SysFont("montserrat-font/MontserratMedium-nRxlJ.ttf", 30)
-        self.sort_algorithms = ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quicksort", "Merge Sort",
-                                "Shell Sort", "Hybrid Sort"]
+        self.sort_algorithms = ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quick Sort", "Merge Sort",
+                                "Shell Sort", "Hybrid Sort"]#"Heap Sort"
         self.buttons = ["Sort", "Stop", "Shuffle", "Info"]
         self.active = "Insertion Sort"
         self.action=""
@@ -63,8 +63,8 @@ class Ordination:
             algorithm = self.links[self.sort_algorithms.index(self.active)]
             mi, mx = algorithm.run(self.sample.get_height_values(), self.new_sample)
             self.new_sample = False
-            self.sample.swap_elements(mi, mx, screen, sort_speed)
-            if self.sample.is_sorted():
+            sorted = self.sample.swap_elements(mi, mx, screen, sort_speed)
+            if self.sample.is_sorted() or sorted:
                 self.sort = False
 
         if self.news:

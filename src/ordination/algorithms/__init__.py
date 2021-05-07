@@ -1,3 +1,12 @@
+# ___________________________Descripton__________________________
+
+# The following implemted some of the sort algorithms for the need 
+# of visual perception of the algorithms to the app the class have 
+# a special form of implementation, but all of them had a same 
+# commun thing, that is the return of their run() method, that will 
+# be the index value of the a minimo and the index value of a maximo
+# to be changed.
+
 class Insertion:
     @staticmethod
     def run(items, useless):
@@ -15,7 +24,6 @@ class Insertion:
                 return j+1, i
         return None, None
 
-
 class Selection:
     @staticmethod
     def run(items, useless):
@@ -30,11 +38,6 @@ class Selection:
                 return i, min_item
         return None, None
 
-
-
-# _________ on building process ____________
-# _________ on building process ____________
-# _________ on building process ____________
 class Bubble:
     index = 0
     all_index_change = []
@@ -42,6 +45,7 @@ class Bubble:
     def run(self, items, useless):
         
         if useless:
+            self.all_index_change=[]
             self.pos_last_index_returned = 0
             while True:
                 sort = False
@@ -66,7 +70,6 @@ class Bubble:
             i += 1
         return None, None
 
-
 class Quick:
     pos_last_index_returned = 0  # to control the positions index to make the changes
     index = []  # to store all the index made by the sort
@@ -89,8 +92,6 @@ class Quick:
             mx = self.quicksort(items, low, high)
             del mx
 
-        # print(self.index)
-        # exit(1)
         # This is to control the index that will be sent, keeping in mind 
         # the one's that was already sent
         self.filtring()
@@ -98,6 +99,8 @@ class Quick:
         for index in self.index:
             if i == self.pos_last_index_returned:
                 self.pos_last_index_returned += 1
+                if index[0]>index[1]:
+                    return index[1],index[0]
                 return index[0], index[1]
             i += 1
         return None, None
@@ -119,12 +122,11 @@ class Quick:
         for j in range(low, high):  # an iteration from the low one to the high one
             if items[j]<=pivot:  # checking all the one's that are lower than the pivot
                 i = i+1
-                self.index.append((i, j))  # Storing the index
+                self.index.append((j, i))  # Storing the index
                 items[i], items[j]=items[j], items[i]  # swapping the elements
         self.index.append((i+1, high))  # Storing the index
         items[i+1], items[high] = items[high], items[i+1]  # swapping the elements
         return i+1
-
 
 class Merge:
     def run(self, items, new_sample):
@@ -159,10 +161,13 @@ class Shell:
         return None, None
         # print(self.all_index_change)
 
-
 class Hybrid:
     def run(self, items, new_sample):
         print("hybrid")
+
+
+# ___________________________Testing aria__________________________
+
 
 # shell = Bubble()
 # array = [12, 134, 22, 323,1 ,31,3, 13, 23, 2,3, 1, 346, 7]

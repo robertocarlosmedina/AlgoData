@@ -25,11 +25,18 @@ class Rectangles:
         self.sorted_sample = sorted(self.get_height_values())
 
     def create_sample(self, sample_size):
-        aux = 402-((sample_size-1)*5)
+        spacing = 5 # space inter smaple
+
+        aux = 402-((sample_size-1)*spacing)
         x = aux/sample_size
-        # print(sample_size, aux, x)
-        x_center = (680/2-((x+5) * sample_size + 45)/2)-82  # this is for center the sample in the graphic
-        self.sample = [Rectangle((x+5) * i + x_center, x) for i in range(sample_size)]       
+        if x <1:
+            spacing = 2
+            x = 1
+
+        # print(sample_size, x)
+        # aux = 
+        x_center = (680/2-((x+spacing) * sample_size + 45)/2)-82  # this is for center the sample in the graphic
+        self.sample = [Rectangle((x+spacing) * i + x_center, x) for i in range(sample_size)]       
         self.sorted_sample = sorted(self.get_height_values())
         for i in range(len(self.sample)):
             self.set_right_color_to(i)
@@ -72,8 +79,7 @@ class Rectangles:
             if element.color == color.red.value:
                 return False
         self.already_sorted = True
-        return True
-    
+        return True    
 
     def swap_elements(self, index1, index2, screen, sort_speed):
         if index1 is None:

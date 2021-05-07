@@ -66,6 +66,7 @@ class Ordination:
             sorted = self.sample.swap_elements(mi, mx, screen, sort_speed)
             if self.sample.is_sorted() or sorted:
                 self.sort = False
+                # print("ok")
 
         if self.news:
             self.sample.create_sample(sample_size)
@@ -100,7 +101,7 @@ class Ordination:
                 pressed = True
         pygame.draw.circle(screen, color.green.value, self.sampleSize, 10) if pressed\
             else pygame.draw.circle(screen, color.white1.value, self.sampleSize, 9)
-        size = int(100-(((self.sampleSize[1]-90)*100)/250))
+        size = int(130-(((self.sampleSize[1]-90)*100)/250))
         # to make the shuffle while moving the button
         if pressed:
             self.sample.create_sample(size)

@@ -14,12 +14,12 @@ class Ordination:
         self.header_box = pygame.Rect(30, 20, 600, 40)
         self.font = pygame.font.SysFont("montserrat-font/MontserratMedium-nRxlJ.ttf", 30)
         self.sort_algorithms = ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quick Sort", "Merge Sort",
-                                "Shell Sort", "Hybrid Sort"]#"Heap Sort"
+                                "Shell Sort", "Heap Sort"]#"Heap Sort"
         self.buttons = ["Sort", "Stop", "Shuffle", "Info"]
         self.active = "Insertion Sort"
         self.action=""
         self.links = {0: algorithms.Insertion(), 1: algorithms.Selection(), 2: algorithms.Bubble(),
-                      3: algorithms.Quick(), 4: algorithms.Merge(), 5: algorithms.Shell(), 6: algorithms.Hybrid()}
+                      3: algorithms.Quick(), 4: algorithms.Merge(), 5: algorithms.Shell(), 6: algorithms.Heap()}
         self.sample = Rectangles()
         self.sort = False
         self.news, self.new_sample = False, True

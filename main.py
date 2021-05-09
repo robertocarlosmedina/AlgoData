@@ -11,7 +11,7 @@ pygame.display.set_caption('AlgoData')
 
 # this is to control all the pages of thes aplication
 links = {"start": st(), "menu": Menu(), "ordination_algorithms": odt()}
-current_layout = "start"
+current_layout = "ordination_algorithms"
 # current_layout = "start"
 
 theme = True

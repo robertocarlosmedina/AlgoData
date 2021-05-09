@@ -161,10 +161,58 @@ class Shell:
         return None, None
         # print(self.all_index_change)
 
-class Hybrid:
+class Heap:
+    all_index_change = []
+    pos_last_index_returned = 0  # to control the positions index to make the changes
     def run(self, items, new_sample):
-        print("hybrid")
+        n = len(items)
 
+        if new_sample:
+            # Build a maxheap.
+            # Since last parent will be at ((n//2)-1) we can start at that location.
+            for i in range(n // 2 - 1, -1, -1):
+                self.heapify(items, n, i)
+
+            # One by one extract elements
+            for i in range(n-1, 0, -1):
+                items[i], items[0] = items[0], items[i]   # swap
+                self.all_index_change.append((0,i))
+                self.heapify(items, i, 0)
+
+        # if the index that will be change in the sort hare already determinated
+        i = 0
+        for index in self.all_index_change:
+            if i == self.pos_last_index_returned:
+                self.pos_last_index_returned += 1
+                return index[0], index[1]
+            i += 1
+        return None, None
+
+    # To heapify subtree rooted at index i.
+    # n is size of heap
+    def heapify(self,arr, n, i):
+        largest = i  # Initialize largest as root
+        l = 2 * i + 1     # left = 2*i + 1
+        r = 2 * i + 2     # right = 2*i + 2
+    
+        # See if left child of root exists and is
+        # greater than root
+        if l < n and arr[i] < arr[l]:
+            largest = l
+    
+        # See if right child of root exists and is
+        # greater than root
+        if r < n and arr[largest] < arr[r]:
+            largest = r
+    
+        # Change root, if needed
+        if largest != i:
+            self.all_index_change.append((i, largest))
+            arr[i],arr[largest] = arr[largest],arr[i]  # swap
+    
+            # Heapify the root.
+            self.heapify(arr, n, largest)
+    
 
 # ___________________________Testing aria__________________________
 

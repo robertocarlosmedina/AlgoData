@@ -5,7 +5,7 @@ from src.blocks.rectangles import Rectangles
 from src.ordination import algorithms
 from src.ordination.algorithms import *
 
-
+# Class that will control all functionality of the Ordination screen
 class Ordination:
     pygame.init()
     i = 0
@@ -76,6 +76,7 @@ class Ordination:
 
         return "ordination_algorithms"
     
+    # This method Draw a button in the screen that allow to change the sort speed
     def speedControl(self, screen):
         pressed = False
         pygame.draw.line(screen, color.grey.value, (40, 325), (420, 325), 1)
@@ -91,7 +92,8 @@ class Ordination:
         # to revert the way that the speed increase:
         # speed = 3000-(((self.speed_pos[0]-30)*3000)/345)
         return 3000-(((self.speed_pos[0]-30)*3000)/380)
-
+    
+    # Method that draw a button on the screen that allow the sample size changes
     def sampleSizeDetermination(self, screen):
         pressed = False
         pygame.draw.line(screen, color.grey.value, (450, 137), (450, 305), 1)
